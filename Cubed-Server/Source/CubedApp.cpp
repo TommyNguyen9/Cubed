@@ -4,8 +4,16 @@
 class ExampleLayer : public Walnut::Layer
 {
 public:
-	
-	// test
+	virtual void OnAttach() override
+	{
+
+	}
+
+	virtual void OnAttach() override
+	{
+
+	}
+
 private:
 	bool m_AboutModalOpen = false;
 };
