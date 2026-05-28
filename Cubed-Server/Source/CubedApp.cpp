@@ -3,6 +3,8 @@
 
 #include "Walnut/Core/Log.h"
 
+#include <chrono>
+
 class ExampleLayer : public Walnut::Layer
 {
 public:
@@ -14,6 +16,9 @@ public:
 	virtual void OnUpdate(float ts) override
 	{
 		WL_INFO("Server Timestep: {}", ts);
+
+		using namespace std::chrono_literals;
+		std::this_thread::sleep_for(5ms); // Slow down timestep.
 	}
 
 private:
