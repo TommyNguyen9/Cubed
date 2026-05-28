@@ -4,25 +4,31 @@
 #include "Walnut/Image.h"
 #include "Walnut/UI/UI.h"
 
+static void DrawRect(float x, float y, float width, float height, uint32_t color)
+{
+	ImDrawList* drawList = ImGui::GetForegroundDrawList();
+
+	ImVec2 min = ImGui::GetWindowPos() + ImVec2(x, y);
+	ImVec2 max = min + ImVec2(width, height);
+
+	drawList->AddRectFilled(min, max, color);
+
+}
+
 class ExampleLayer : public Walnut::Layer
 {
 public:
 	virtual void OnUIRender() override
 	{
 		ImGuiViewport* viewport = ImGui::GetMainViewport();
-		ImDrawList* drawList = ImGui::GetForegroundDrawList();
-
-		ImVec2 min = ImGui::GetWindowPos() + ImVec2(50, 50);
-		ImVec2 max = min + ImVec2(150, 150);
-
-		//drawList->AddRectFilled(ImVec2(viewport->Pos.x + 50, viewport->Pos.y + 50), ImVec2(viewport->Pos.x + 150, viewport->Pos.y + 150), IM_COL32(255, 0, 0, 255));
-		drawList->AddRectFilled(min, max, IM_COL32(255, 0, 0, 255));
-
+		
 		ImGui::Begin("Hello");
 		ImGui::Button("Button");
 		ImGui::End();
 
 		ImGui::ShowDemoWindow();
+
+		DrawRect(50, 80, 120, 80, 0xff7f827f);
 
 		UI_DrawAboutModal();
 	}
