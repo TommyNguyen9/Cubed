@@ -9,6 +9,14 @@ class ExampleLayer : public Walnut::Layer
 public:
 	virtual void OnUIRender() override
 	{
+		ImGuiViewport* viewport = ImGui::GetMainViewport();
+		ImDrawList* drawList = ImGui::GetForegroundDrawList();
+
+		ImVec2 min = ImGui::GetWindowPos() + ImVec2(50, 50);
+		ImVec2 max = min + ImVec2(150, 150);
+
+		drawList->AddRectFilled(ImVec2(viewport->Pos.x + 50, viewport->Pos.y + 50), ImVec2(viewport->Pos.x + 150, viewport->Pos.y + 150), IM_COL32(255, 0, 0, 255));
+
 		ImGui::Begin("Hello");
 		ImGui::Button("Button");
 		ImGui::End();
