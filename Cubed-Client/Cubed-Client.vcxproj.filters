@@ -12,7 +12,7 @@
     <ClCompile Include="Source\CubedApp.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="ClientLayer.cpp">
+    <ClCompile Include="Source\ClientLayer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

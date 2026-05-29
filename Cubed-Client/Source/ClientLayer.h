@@ -3,6 +3,8 @@
 #include "Walnut/Layer.h"
 #include "Walnut/Application.h"
 
+#include <glm/glm.hpp>
+
 namespace Cubed {
 
 	class ClientLayer : public Walnut::Layer
@@ -13,6 +15,9 @@ namespace Cubed {
 
 		virtual void OnUpdate(float ts) override;
 		virtual void OnUIRender() override;
+
+	private:
+		glm::vec2 m_PlayerPosition;
 	};
 
 
