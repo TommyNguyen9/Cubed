@@ -1,7 +1,6 @@
 #include "ClientLayer.h"
 
 #include "imgui.h"
-#include "imgui_internal.h"
 
 namespace Cubed {
 
@@ -24,7 +23,7 @@ namespace Cubed {
 
 	void ClientLayer::OnDetach()
 	{
-		
+
 	}
 
 	void ClientLayer::OnUpdate(float ts)
