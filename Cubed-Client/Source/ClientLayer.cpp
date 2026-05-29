@@ -38,9 +38,11 @@ namespace Cubed {
 			dir.y = 1;
 
 		if (Walnut::Input::IsKeyDown(KeyCode::A))
-			dir.y = -1;
+			dir.x = -1;
 		else if (Walnut::Input::IsKeyDown(KeyCode::D))
-			dir.y = 1;
+			dir.x = 1;
+
+		dir = glm::normalize(dir)
 
 	   
 	}
