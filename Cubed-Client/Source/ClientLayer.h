@@ -17,7 +17,7 @@ namespace Cubed {
 		virtual void OnUIRender() override;
 
 	private:
-		glm::vec2 m_PlayerPosition;
+		glm::vec2 m_PlayerPosition{ 50, 50 };
 	};
 
 
