@@ -75,12 +75,7 @@ namespace Cubed {
 		}
 		else 
 		{
-			bool readOnly = connectionStatus != Walnut::Client::ConnectionStatus::Disconnected;
-
 			ImGui::Begin("Connect to Server");
-
-			if (readOnly)
-			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
 
 			ImGui::InputText("Server Address", &m_ServerAddress);
 			if (connectionStatus == Walnut::Client::ConnectionStatus::FailedToConnect)
@@ -93,8 +88,7 @@ namespace Cubed {
 				m_Client.ConnectToServer(m_ServerAddress);
 			}
 
-			if (readOnly)
-				ImGui::PopItemFlag();
+		
 
 			ImGui::End();
 
