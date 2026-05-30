@@ -42,23 +42,31 @@ namespace Cubed {
 		else if (Walnut::Input::IsKeyDown(Walnut::KeyCode::D))
 			dir.x = 1;
 
-		// Optional
-		dir = glm::normalize(dir);
-
-		if (dir.length() > 0.0f)
+	
+		if (glm::length(dir) > 0.0f)
 		{   
-			const float speed = 5.0f;
+			const float speed = 50.0f;
+			// Optional
+			dir = glm::normalize(dir);
 			m_PlayerVelocity = dir * speed;
 		}
 
-		m_PlayerVelocity = glm::mix(m_PlayerVelocity, glm::vec2(0.0f), 0.3f);
-
 		m_PlayerPosition += m_PlayerVelocity * ts;
+
+		m_PlayerVelocity = glm::mix(m_PlayerVelocity, glm::vec2(0.0f), 12.0f * ts);
+		m_PlayerVelocity = { 0, 0 };
 
 	}
 
 	void ClientLayer::OnUIRender()
 	{
+		if (m_Client.GetConnectionStatus() == Walnut::Client::ConnectionStatus::Connected)
+		{
+			// play game
+			DrawRect(m_PlayerPosition, { 50.0f, 50.0f }, 0xffff00ff);
+			
+		}
+
 		ImGui::ShowDemoWindow();
 
 		DrawRect(m_PlayerPosition, { 50.0f, 50.0f }, 0xffff00ff);

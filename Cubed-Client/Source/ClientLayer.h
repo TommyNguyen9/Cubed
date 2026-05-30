@@ -3,6 +3,8 @@
 #include "Walnut/Layer.h"
 #include "Walnut/Application.h"
 
+#include "Walnut/Networking/Client.h"
+
 #include <glm/glm.hpp>
 
 namespace Cubed {
@@ -19,6 +21,8 @@ namespace Cubed {
 	private:
 		glm::vec2 m_PlayerPosition{ 50, 50 };
 		glm::vec2 m_PlayerVelocity{ 0, 0 };
+
+		Walnut::Client m_Client;
 	};
 
 
