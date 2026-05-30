@@ -1,5 +1,7 @@
 #include "ServerLayer.h"
 
+#include <chrono>
+
 namespace Cubed {
 
 	void ServerLayer::OnAttach()
@@ -15,7 +17,8 @@ namespace Cubed {
 
 	void ServerLayer::OnUpdate(float ts)
 	{
-
+		using namespace std::chrono_literals;
+		std::this_thread::sleep_for(5ms); // Slow down timestep.
 	}
 
 	void ServerLayer::OnUIRender()

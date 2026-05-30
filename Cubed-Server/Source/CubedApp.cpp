@@ -5,25 +5,7 @@
 
 #include <chrono>
 
-class ExampleLayer : public Walnut::Layer
-{
-public:
-	virtual void OnAttach() override
-	{
-
-	}
-
-	virtual void OnUpdate(float ts) override
-	{
-		WL_INFO("Server Timestep: {}", ts);
-
-		using namespace std::chrono_literals;
-		std::this_thread::sleep_for(5ms); // Slow down timestep.
-	}
-
-private:
-	bool m_AboutModalOpen = false;
-};
+#include "ServerLayer.h"
 
 Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 {
@@ -32,8 +14,7 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 	
 
 	Walnut::Application* app = new Walnut::Application(spec);
-	std::shared_ptr<ExampleLayer> exampleLayer = std::make_shared<ExampleLayer>();
-	app->PushLayer(exampleLayer);
+	app->PushLayer<ServerLayer>();
 	
 	return app;
 }
