@@ -18,6 +18,7 @@ namespace Cubed {
 
 	private:
 		glm::vec2 m_PlayerPosition{ 50, 50 };
+		glm::vec2 m_PlayerVelocity{ 0, 0 };
 	};
 
 

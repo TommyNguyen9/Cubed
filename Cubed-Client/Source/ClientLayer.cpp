@@ -6,12 +6,12 @@
 
 namespace Cubed {
 
-	static void DrawRect(float x, float y, float width, float height, uint32_t color)
+	static void DrawRect(glm::vec2 position, glm::vec2 size, uint32_t color)
 	{
 		ImDrawList* drawList = ImGui::GetForegroundDrawList();
 
-		ImVec2 min = ImGui::GetWindowPos() + ImVec2(x, y);
-		ImVec2 max = min + ImVec2(width, height);
+		ImVec2 min = ImGui::GetWindowPos() + ImVec2(position.x, position.y);
+		ImVec2 max = min + ImVec2(size.x, size.y);
 
 		drawList->AddRectFilled(min, max, color);
 
@@ -32,24 +32,36 @@ namespace Cubed {
 	{
 		glm::vec2 dir{ 0.0f, 0.0f };
 
-		if (Walnut::Input::IsKeyDown(KeyCode::W))
+		if (Walnut::Input::IsKeyDown(Walnut::KeyCode::W))
 			dir.y = -1;
-		else if (Walnut::Input::IsKeyDown(KeyCode::S))
+		else if (Walnut::Input::IsKeyDown(Walnut::KeyCode::S))
 			dir.y = 1;
 
-		if (Walnut::Input::IsKeyDown(KeyCode::A))
+		if (Walnut::Input::IsKeyDown(Walnut::KeyCode::A))
 			dir.x = -1;
-		else if (Walnut::Input::IsKeyDown(KeyCode::D))
+		else if (Walnut::Input::IsKeyDown(Walnut::KeyCode::D))
 			dir.x = 1;
 
-		dir = glm::normalize(dir)
+		// Optional
+		dir = glm::normalize(dir);
 
-	   
+		if (dir.length() > 0.0f)
+		{   
+			const float speed = 5.0f;
+			m_PlayerVelocity = dir * speed;
+		}
+
+		m_PlayerVelocity = glm::mix(m_PlayerVelocity, glm::vec2(0.0f), 0.3f);
+
+		m_PlayerPosition += m_PlayerVelocity * ts;
+
 	}
 
 	void ClientLayer::OnUIRender()
 	{
 		ImGui::ShowDemoWindow();
+
+		DrawRect(m_PlayerPosition, { 50.0f, 50.0f }, 0xffff00ff);
 
 	}
 
