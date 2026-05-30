@@ -14,7 +14,7 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 	
 
 	Walnut::Application* app = new Walnut::Application(spec);
-	app->PushLayer<ServerLayer>();
+	app->PushLayer<Cubed::ServerLayer>();
 	
 	return app;
 }
