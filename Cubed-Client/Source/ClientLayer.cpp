@@ -73,13 +73,21 @@ namespace Cubed {
 		}
 		else 
 		{
+			bool readOnly = connectionStatus != Walnut::Client::ConnectionStatus::Disconnected;
+
 			ImGui::Begin("Connect to Server");
 
-			ImGui::InputText("Server Address", &m_ServerAddress);
+			if (readOnly)
+			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+
+			ImGui::InputText("Server Address", &m_ServerAddress, readOnly ? ImGuiInputTextFlags_ReadOnly : 0);
 			if (ImGui::Button("Connect"))
 			{
 				m_Client.ConnectToServer(m_ServerAddress);
 			}
+
+			if (readOnly)
+				ImGui::PopItemFlag();
 
 			ImGui::End();
 
