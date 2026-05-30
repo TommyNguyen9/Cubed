@@ -7,6 +7,7 @@
 
 #include <glm/glm.hpp>
 
+
 namespace Cubed {
 
 	class ClientLayer : public Walnut::Layer
@@ -21,6 +22,8 @@ namespace Cubed {
 	private:
 		glm::vec2 m_PlayerPosition{ 50, 50 };
 		glm::vec2 m_PlayerVelocity{ 0, 0 };
+
+		std::string m_ServerAddress;
 
 		Walnut::Client m_Client;
 	};

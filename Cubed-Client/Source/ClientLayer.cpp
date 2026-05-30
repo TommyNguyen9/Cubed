@@ -3,6 +3,7 @@
 
 #include "imgui.h"
 #include "imgui_internal.h"
+#include "misc/cpp/imgui_stdlib.h"
 
 namespace Cubed {
 
@@ -30,6 +31,9 @@ namespace Cubed {
 
 	void ClientLayer::OnUpdate(float ts)
 	{
+		if (m_Client.GetConnectionStatus() != Walnut::Client::ConnectionStatus::Connected)
+			return;
+
 		glm::vec2 dir{ 0.0f, 0.0f };
 
 		if (Walnut::Input::IsKeyDown(Walnut::KeyCode::W))
@@ -60,17 +64,31 @@ namespace Cubed {
 
 	void ClientLayer::OnUIRender()
 	{
-		if (m_Client.GetConnectionStatus() == Walnut::Client::ConnectionStatus::Connected)
+		Walnut::Client::ConnectionStatus connectionStatus = m_Client.GetConnectionStatus();
+		if (connectionStatus == Walnut::Client::ConnectionStatus::Connected)
 		{
 			// play game
 			DrawRect(m_PlayerPosition, { 50.0f, 50.0f }, 0xffff00ff);
 			
 		}
+		else 
+		{
+			ImGui::Begin("Connect to Server");
+
+			ImGui::InputText("Server Address", &m_ServerAddress);
+			if (ImGui::Button("Connect"))
+			{
+				m_Client.ConnectToServer(m_ServerAddress);
+			}
+
+			ImGui::End();
+
+		}
+
 
 		ImGui::ShowDemoWindow();
 
-		DrawRect(m_PlayerPosition, { 50.0f, 50.0f }, 0xffff00ff);
-
 	}
+
 
 }
