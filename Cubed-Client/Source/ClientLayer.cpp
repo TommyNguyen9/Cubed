@@ -1,10 +1,10 @@
 #include "ClientLayer.h"
-#include "Walnut/Input/Input.h"
+#include "Input.h"
 
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "misc/cpp/imgui_stdlib.h"
-#include "Walnut/ImGui/ImGuiTheme.h"
+#include "ImGuiTheme.h"
 
 namespace Cubed {
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Walnut/Layer.h"
+#include "Source/HeadlessConsole.h"
 
 namespace Cubed {
 
@@ -12,5 +13,9 @@ namespace Cubed {
 
 		virtual void OnUpdate(float ts) override;
 		virtual void OnUIRender() override;
+	private:
+		void OnConsoleMessage(std::string_view message);
+	private:
+		HeadlessConsole m_Console;
 	};
 }
