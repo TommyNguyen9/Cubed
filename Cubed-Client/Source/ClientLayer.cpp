@@ -4,6 +4,7 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "misc/cpp/imgui_stdlib.h"
+#include "Walnut/ImGui/ImGuiTheme.h"
 
 namespace Cubed {
 
@@ -21,6 +22,7 @@ namespace Cubed {
 
 	void ClientLayer::OnAttach()
 	{
+		m_Client.SetDataReceivedCallback([this](const Walnut::Buffer buffer) {OnDataReceived(buffer); });
 
 	}
 
@@ -80,7 +82,12 @@ namespace Cubed {
 			if (readOnly)
 			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
 
-			ImGui::InputText("Server Address", &m_ServerAddress, readOnly ? ImGuiInputTextFlags_ReadOnly : 0);
+			ImGui::InputText("Server Address", &m_ServerAddress);
+			if (connectionStatus == Walnut::Client::ConnectionStatus::FailedToConnect)
+				ImGui::TextColored(ImColor(Walnut::UI::Colors::Theme::error), "Failed to connect!");
+			else if (connectionStatus == Walnut::Client::ConnectionStatus::Connecting)
+				ImGui::TextColored(ImColor(Walnut::UI::Colors::Theme::textDarker), "Connecting....");
+
 			if (ImGui::Button("Connect"))
 			{
 				m_Client.ConnectToServer(m_ServerAddress);
@@ -95,6 +102,11 @@ namespace Cubed {
 
 
 		ImGui::ShowDemoWindow();
+
+	}
+
+	void ClientLayer::OnDataReceived(const Walnut::Buffer buffer)
+	{
 
 	}
 
