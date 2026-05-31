@@ -3,11 +3,18 @@
 #include <chrono>
 
 #include "Walnut/Core/Log.h"
+#include "Walnut/Serialization/BufferStream.h"
+
+#include ""
 
 namespace Cubed {
 
+	static Walnut::Buffer s_ScratchBuffer;
+
 	void ServerLayer::OnAttach()
 	{
+		s_ScratchBuffer.Allocate(10 * 1024 * 1024); // 10MB
+
 		m_Console.SetMessageSendCallback([this](std::string_view message) { OnConsoleMessage(message);});
 
 		m_Server.SetClientConnectedCallback([this](const Walnut::ClientInfo& clientInfo) {OnClientConnected(clientInfo); });
@@ -46,6 +53,17 @@ namespace Cubed {
 	void ServerLayer::OnClientConnected(const Walnut::ClientInfo& clientInfo)
 	{
 		WL_INFO_TAG("Server", "Client Connected! ID = {}", clientInfo.ID);
+
+
+		Walnut::BufferStreamWriter stream(s_ScratchBuffer);
+
+		// packet type - connected
+		// id
+
+
+		stream.WriteRaw(PacketType::ClientConnect);
+
+		m_Server.SendBufferToClient(clientInfo.ID, stream.GetBuffer());
 	}
 
 	void ServerLayer::OnClientDisconnected(const Walnut::ClientInfo& clientInfo)
