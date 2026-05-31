@@ -1,12 +1,17 @@
-#include "ServerLayer.h"
+#include "Source/ServerLayer.h"
 
 #include <chrono>
+
 
 namespace Cubed {
 
 	void ServerLayer::OnAttach()
 	{
 		m_Console.SetMessageSendCallback([this](std::string_view message) { OnConsoleMessage(message);});
+
+		m_Server.SetClientConnectedCallback([this](const Walnut::ClientInfo& clientInfo) {OnClientConnected(clientInfo); });
+		m_Server.SetClientDisconnectedCallback([this](const Walnut::ClientInfo& clientInfo) {OnClientDisconnected(clientInfo); });
+		m_Server.SetDataReceivedCallback([this](const Walnut::ClientInfo& clientInfo, const Walnut::Buffer buffer) {OnDataReceived(clientInfo, buffer); });
 
 		m_Server.Start();
 
@@ -35,5 +40,20 @@ namespace Cubed {
 			// command
 			std::cout << "You called the " << message << " command!\n";
 		}
+	}
+
+	void ServerLayer::OnClientConnected(const Walnut::ClientInfo& clientInfo)
+	{
+
+	}
+
+	void ServerLayer::OnClientDisconnected(const Walnut::ClientInfo& clientInfo)
+	{
+
+	}
+
+	void ServerLayer::OnDataReceived(const Walnut::ClientInfo& clientInfo, const Walnut::Buffer buffer)
+	{
+
 	}
 }

@@ -24,5 +24,6 @@ namespace Cubed {
 
 	private:
 		HeadlessConsole m_Console;
+		Walnut::Server m_Server{ 8192 };
 	};
 }
