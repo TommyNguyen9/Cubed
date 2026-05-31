@@ -8,11 +8,13 @@ namespace Cubed {
 	{
 		m_Console.SetMessageSendCallback([this](std::string_view message) { OnConsoleMessage(message);});
 
+		m_Server.Start();
+
 	}
 
 	void ServerLayer::OnDetach()
 	{
-
+		m_Server.Stop();
 	}
 
 	void ServerLayer::OnUpdate(float ts)

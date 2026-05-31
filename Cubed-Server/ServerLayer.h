@@ -3,6 +3,8 @@
 #include "Walnut/Layer.h"
 #include "Source/HeadlessConsole.h"
 
+#include "Walnut/Networking/Server.h"
+
 namespace Cubed {
 
 	class ServerLayer : public Walnut::Layer
@@ -17,5 +19,6 @@ namespace Cubed {
 		void OnConsoleMessage(std::string_view message);
 	private:
 		HeadlessConsole m_Console;
+		Walnut::Server m_Server{ 8192 };
 	};
 }

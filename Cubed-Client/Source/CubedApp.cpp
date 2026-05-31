@@ -3,6 +3,8 @@
 
 #include "ClientLayer.h"
 
+
+
 Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 {
 	Walnut::ApplicationSpecification spec;
