@@ -2,6 +2,7 @@
 
 #include <chrono>
 
+#include "Walnut/Core/Log.h"
 
 namespace Cubed {
 
@@ -44,16 +45,17 @@ namespace Cubed {
 
 	void ServerLayer::OnClientConnected(const Walnut::ClientInfo& clientInfo)
 	{
-
+		WL_INFO_TAG("Server", "Client Connected! ID = {}", clientInfo.ID);
 	}
 
 	void ServerLayer::OnClientDisconnected(const Walnut::ClientInfo& clientInfo)
 	{
-
+		WL_INFO_TAG("Server", "Client Disconnected! ID = {}", clientInfo.ID);
 	}
 
 	void ServerLayer::OnDataReceived(const Walnut::ClientInfo& clientInfo, const Walnut::Buffer buffer)
 	{
-
+		//WL_INFO_TAG("Server", )
 	}
+
 }
