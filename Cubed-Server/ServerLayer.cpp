@@ -5,7 +5,7 @@
 #include "Walnut/Core/Log.h"
 #include "Walnut/Serialization/BufferStream.h"
 
-#include ""
+#include "ServerPacket.h"
 
 namespace Cubed {
 
@@ -62,7 +62,7 @@ namespace Cubed {
 
 
 		stream.WriteRaw(PacketType::ClientConnect);
-
+		stream.WriteRaw(clientInfo.ID);
 		m_Server.SendBufferToClient(clientInfo.ID, stream.GetBuffer());
 	}
 
@@ -73,7 +73,21 @@ namespace Cubed {
 
 	void ServerLayer::OnDataReceived(const Walnut::ClientInfo& clientInfo, const Walnut::Buffer buffer)
 	{
-		//WL_INFO_TAG("Server", )
+		Walnut::BufferStreamReader stream(buffer);
+		
+		PacketType type;
+		stream.ReadRaw(type);
+		switch (type)
+		{
+		case PacketType::ClientUpdate:
+			glm::vec2 pos, vel;
+			stream.ReadRaw<glm::vec2>(pos);
+			stream.ReadRaw<glm::vec2>(vel);
+
+			WL_INFO_TAG("Server", "{}, {}, - {}, {},", pos.x, pos.y, vel.x, vel.y);
+
+			break;
+		}
 	}
 
 }

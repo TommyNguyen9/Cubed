@@ -60,7 +60,7 @@ namespace Cubed {
 		m_PlayerPosition += m_PlayerVelocity * ts;
 
 		m_PlayerVelocity = glm::mix(m_PlayerVelocity, glm::vec2(0.0f), 12.0f * ts);
-		m_PlayerVelocity = { 0, 0 };
+		//m_PlayerVelocity = { 0, 0 };
 
 	}
 
