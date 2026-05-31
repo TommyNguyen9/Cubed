@@ -156,8 +156,8 @@ IF EXIST "..\Walnut\Walnut-Modules\Walnut-Networking\vendor\GameNetworkingSocket
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ServerLayer.h" />
     <ClInclude Include="Source\HeadlessConsole.h" />
+    <ClInclude Include="Source\ServerLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ServerLayer.cpp" />

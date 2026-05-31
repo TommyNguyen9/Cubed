@@ -23,7 +23,7 @@
     <ClInclude Include="Source\HeadlessConsole.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="ServerLayer.h">
+    <ClInclude Include="Source\ServerLayer.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
