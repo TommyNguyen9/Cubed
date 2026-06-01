@@ -29,7 +29,7 @@ namespace Cubed {
 
 		Walnut::Client m_Client;
 
-		uint32_t m_ClientID = 0;
+		uint32_t m_PlayerID = 0;
 	};
 
 

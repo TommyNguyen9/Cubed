@@ -122,6 +122,12 @@ namespace Cubed {
 		switch (type)
 		{
 		case PacketType::ClientConnect:
+
+			uint32_t idFromServer;
+			stream.ReadRaw<uint32_t>(idFromServer);
+			//WL_INFO("We have connected! Server says our ID is {}", idFromServer);
+			//WL_INFO("We say our ID is {}", m_Client.GetID());
+			m_PlayerID = idFromServer;
 			break;
 
 		case PacketType::ClientUpdate:
