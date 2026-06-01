@@ -131,7 +131,11 @@ namespace Cubed {
 			break;
 
 		case PacketType::ClientUpdate:
-			// list of other clients
+			
+			m_PlayerDataMutex.lock();
+			stream.ReadMap(m_PlayerData);
+			m_PlayerDataMutex.unlock();
+
 			break;
 		}
       

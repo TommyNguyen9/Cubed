@@ -32,8 +32,18 @@ namespace Cubed {
 
 	void ServerLayer::OnUpdate(float ts)
 	{
+		Walnut::BufferStreamWriter stream(s_ScratchBuffer);
+		stream.WriteRaw(PacketType::ClientUpdate);
+		m_PlayerDataMutex.lock();
+		{
+			stream.WriteMap(m_PlayerData);
+		}
+		m_PlayerDataMutex.unlock();
+
+		m_Server.SendBufferToAllClients(stream.GetBuffer());
+
 		using namespace std::chrono_literals;
-		std::this_thread::sleep_for(5ms); // Slow down timestep.
+		std::this_thread::sleep_for(5ms);
 	}
 
 	void ServerLayer::OnUIRender()
@@ -80,11 +90,14 @@ namespace Cubed {
 		switch (type)
 		{
 		case PacketType::ClientUpdate:
-			glm::vec2 pos, vel;
-			stream.ReadRaw<glm::vec2>(pos);
-			stream.ReadRaw<glm::vec2>(vel);
-
-			WL_INFO_TAG("Server", "{}, {}, - {}, {},", pos.x, pos.y, vel.x, vel.y);
+					
+			m_PlayerDataMutex.lock();
+			{
+				PlayerData& playerData = m_PlayerData[clientInfo.ID];
+				stream.ReadRaw<glm::vec2>(playerData.Position);
+				stream.ReadRaw<glm::vec2>(playerData.Velocity);
+			}
+			m_PlayerDataMutex.unlock();
 
 			break;
 		}

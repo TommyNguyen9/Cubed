@@ -5,6 +5,8 @@
 
 #include "Walnut/Networking/Server.h"
 
+#include <map>
+
 namespace Cubed {
 
 	class ServerLayer : public Walnut::Layer
@@ -25,5 +27,14 @@ namespace Cubed {
 	private:
 		HeadlessConsole m_Console;
 		Walnut::Server m_Server{ 8192 };
+
+		struct PlayerData
+		{
+			glm::vec2 Position;
+			glm::vec2 Velocity;
+		};
+
+		std::mutex m_PlayerDataMutex;
+		std::map<uint32_t, PlayerData> m_PlayerData;
 	};
 }
