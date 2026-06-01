@@ -6,6 +6,7 @@
 #include "Walnut/Networking/Server.h"
 
 #include <map>
+#include "glm/glm.hpp"
 
 namespace Cubed {
 

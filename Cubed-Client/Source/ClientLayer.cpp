@@ -76,6 +76,8 @@ namespace Cubed {
 		stream.WriteRaw<glm::vec2>(m_PlayerPosition);
 		stream.WriteRaw<glm::vec2>(m_PlayerVelocity);
 		m_Client.SendBuffer(stream.GetBuffer());
+
+			
 	}
 
 	void ClientLayer::OnUIRender()
@@ -86,6 +88,19 @@ namespace Cubed {
 			// play game
 			DrawRect(m_PlayerPosition, { 50.0f, 50.0f }, 0xffff00ff);
 			
+			m_PlayerDataMutex.lock();
+			std::map<uint32_t, PlayerData> playerData = m_PlayerData;
+			m_PlayerDataMutex.unlock();
+
+			for (const auto& [id, data] : playerData)
+			{
+				if (id == m_PlayerID)
+					continue;
+
+				DrawRect(data.Position, { 50.0f, 50.0f }, 0xffff00ff);
+
+			}
+
 		}
 		else 
 		{

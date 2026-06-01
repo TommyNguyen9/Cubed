@@ -6,6 +6,7 @@
 #include "Walnut/Serialization/BufferStream.h"
 
 #include "ServerPacket.h"
+#include "glm/glm.hpp"
 
 namespace Cubed {
 
