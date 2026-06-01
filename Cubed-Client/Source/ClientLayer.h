@@ -28,6 +28,8 @@ namespace Cubed {
 		std::string m_ServerAddress;
 
 		Walnut::Client m_Client;
+
+		uint32_t m_ClientID = 0;
 	};
 
 

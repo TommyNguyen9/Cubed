@@ -6,7 +6,14 @@
 #include "misc/cpp/imgui_stdlib.h"
 #include "ImGuiTheme.h"
 
+#include "Walnut/Serialization/BufferStream.h"
+#include "Walnut/Serialization/StreamWriter.h"
+
+#include "ServerPacket.h"
+
 namespace Cubed {
+
+	static Walnut::Buffer s_ScratchBuffer;
 
 	static void DrawRect(glm::vec2 position, glm::vec2 size, uint32_t color)
 	{
@@ -22,6 +29,8 @@ namespace Cubed {
 
 	void ClientLayer::OnAttach()
 	{
+		s_ScratchBuffer.Allocate(10 * 1024 * 1024);
+
 		m_Client.SetDataReceivedCallback([this](const Walnut::Buffer buffer) {OnDataReceived(buffer); });
 
 	}
@@ -60,8 +69,13 @@ namespace Cubed {
 		m_PlayerPosition += m_PlayerVelocity * ts;
 
 		m_PlayerVelocity = glm::mix(m_PlayerVelocity, glm::vec2(0.0f), 12.0f * ts);
-		//m_PlayerVelocity = { 0, 0 };
+		
 
+		Walnut::BufferStreamWriter stream(s_ScratchBuffer);
+		stream.WriteRaw(PacketType::ClientUpdate);
+		stream.WriteRaw<glm::vec2>(m_PlayerPosition);
+		stream.WriteRaw<glm::vec2>(m_PlayerVelocity);
+		m_Client.SendBuffer(stream.GetBuffer());
 	}
 
 	void ClientLayer::OnUIRender()
@@ -101,7 +115,20 @@ namespace Cubed {
 
 	void ClientLayer::OnDataReceived(const Walnut::Buffer buffer)
 	{
+		Walnut::BufferStreamReader stream(buffer);
 
+		PacketType type;
+		stream.ReadRaw(type);
+		switch (type)
+		{
+		case PacketType::ClientConnect:
+			break;
+
+		case PacketType::ClientUpdate:
+			// list of other clients
+			break;
+		}
+      
 	}
 
 
