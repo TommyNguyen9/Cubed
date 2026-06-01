@@ -97,7 +97,7 @@ namespace Cubed {
 				if (id == m_PlayerID)
 					continue;
 
-				DrawRect(data.Position, { 50.0f, 50.0f }, 0xffff00ff);
+				DrawRect(data.Position, { 50.0f, 50.0f }, 0xff00ff00);
 
 			}
 
